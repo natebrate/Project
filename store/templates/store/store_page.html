@@ -9,9 +9,10 @@
 {% endblock extra_css %}
 
 {% block content %}
-
+<div class="container-md">
     {% image page.image fill-1400x300 as img %}
-    <img src="{{ img.url }}" alt="{{ img.alt }}">
+
+    <img src="{{ img.url }}" class="img-fluid" alt="{{ img.alt }}">
 
         <h1>Hello Store</h1>
         <h2>{{ page.banner_title}}</h2>
@@ -19,21 +20,18 @@
         {{ page.intro }}
     </p>
     <p>
-    <table class="table table-dark table-striped">
-          <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Image</th>
-          </tr>
-          <tr>
-            <td class="table-secondary">
-                Product Available: {{ page.product.prodName }}
-            </td>
-            <td class="table-secondary">
-                {% image page.product.product_image fill-300x200 as img1 %}
-                <img src="{{ img1.url }}" alt="{{ img1.url }}">
-            </td>
-          </tr>
-    </table>
-    </p>
 
+    <div class="card-deck">
+    <!-- Card 1 -->
+    <div class="card" style="width: 18rem;">
+        {% image page.product.product_image fill-300x200 as img1 %}
+        <img src="{{ img1.url }}" alt="{{ img1.url }}">
+        <div class="card-body">
+            <h5 class="card-title">Product Available: {{ page.product.prodName }}</h5>
+            <p class="card-text">{{ page.product.description }}</p>
+            <a href="#" class="btn btn-primary">Order</a>
+        </div>
+    </div>
+    </div>
+</div>
 {% endblock content %}
