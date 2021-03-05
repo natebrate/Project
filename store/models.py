@@ -1,8 +1,12 @@
 import random
 
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel
+
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.core import blocks
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.core.models import Page
+from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image, AbstractImage, AbstractRendition
 from wagtail.snippets.models import register_snippet
@@ -31,15 +35,24 @@ class StorePage(Page):
         related_name='+'
     )
 
+    body = StreamField([
+        # Place Blocks Here
+        ('heading', blocks.CharBlock(template="store/heading_block.html")),
+        ('image', ImageChooserBlock()),
+        ('paragraph', blocks.RichTextBlock()),
+    ], null=True)
+
     content_panels = Page.content_panels + [
+        # Panels in here
         FieldPanel("banner_title"),
         FieldPanel("intro"),
         ImageChooserPanel("image"),
         SnippetChooserPanel('product'),
-
+        StreamFieldPanel('body'),
     ]
 
 
+"""CHOICE FOR DATABASE"""
 ADDRESS_CHOICES = (
     ('B', 'Billing'),
     ('S', 'Shipping'),
