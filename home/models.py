@@ -1,10 +1,9 @@
 import random
 
-from django.contrib.auth.models import User
 from django.db import models
-from django_countries.fields import CountryField
-from wagtail.core.models import Page
 from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.core.models import Page
+from wagtail.images.models import Image, AbstractImage, AbstractRendition
 
 
 class HomePage(Page):
@@ -21,14 +20,21 @@ ADDRESS_CHOICES = (
 )
 
 CATEGORY_CHOICES = (
-    ('H', 'Household'),
-    ('S', 'Snacks'),
-    ('GR', 'Groceries'),
-    ('GA', 'Games'),
-    ('T', 'Toys'),
-    ('OD', 'Outdoors'),
+    ('M', 'Meat'),
+    ('ST', 'Starch'),
+    ('F', 'Fruit'),
+    ('ME', 'Meal'),
+    ('D', 'Drink'),
+    ('SN', 'Snacks'),
 
 )
+
+ORDER_TYPE = (
+    ('D', 'Delivery'),
+    ('TO', 'Take Out'),
+    ('IS', 'In Store'),
+)
+
 
 # Create your models here.
 
@@ -43,29 +49,41 @@ def generate_unique_code():
     return n
 
 
+def generate_food_id():
+    """Generate a random Unique Product ID"""
+    n = 10
+    while True:
+        ''.join(["{}".format(random.randint(0, 9)) for _ in range(0, n)])
+        if Products.objects.filter(prodID=n).count() == 0:
+            break
+    return n
+
+
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    user_profile_id = models.CharField(max_length=12, null=False)
+    """User Profile Model"""
+    username = models.CharField(max_length=100, null=False, primary_key=True)
+    user_profile_id = models.CharField(max_length=12, null=False),
+    phone = models.CharField(max_length=200, null=True),
+    email = models.CharField(max_length=200, null=True, unique=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.user.username
+        return self.username
 
 
 class UserDetails(models.Model):
-    user = models.ForeignKey(User,
+    """Separate the User information that isn't required initially"""
+    user = models.ForeignKey(UserProfile,
                              on_delete=models.CASCADE)
     one_click_purchasing = models.BooleanField(default=False, null=True)
-    phone = models.CharField(max_length=200, null=True)
     street_address = models.CharField(max_length=100, null=True)
     apartment_address = models.CharField(max_length=100, null=True)
-    country = CountryField(multiple=False)
     zip = models.CharField(max_length=100, null=True)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES, null=True)
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user.username
+        return self.user
 
     class Meta:
         verbose_name_plural = 'Addresses'
@@ -81,6 +99,13 @@ class Products(models.Model):
     quantity = models.IntegerField(null=True)
     description = models.TextField(null=True)
     date_created = models.DateField(null=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=False,
+        related_name='+',
+    )
 
     def __str__(self):
         return self.prodName
@@ -95,11 +120,12 @@ class ProductList(models.Model):
 
 
 class ProductOrders(models.Model):
-    """ The class below gets the users order """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    """ The class below gets the user's order """
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     products = models.ManyToManyField(ProductList)
     start_date = models.DateTimeField(auto_now_add=True, null=True)
     ordered_date = models.DateTimeField(null=True)
+    order_type = models.CharField(choices=ORDER_TYPE, max_length=3, default="")
     ordered = models.BooleanField(default=False, null=True)
 
     '''
@@ -114,4 +140,4 @@ class ProductOrders(models.Model):
         '''
 
     def __str__(self):
-        return self.user.username
+        return self.user
