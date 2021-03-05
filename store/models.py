@@ -9,10 +9,10 @@ from wagtail.snippets.models import register_snippet
 
 
 class StorePage(Page):
-    banner_title = models.CharField(max_length=100, default="Welcome!")
+    banner = models.CharField(max_length=200, default="Order Here")
 
     content_panels = Page.content_panels + [
-        FieldPanel("banner_title"),
+        FieldPanel("banner"),
     ]
 
 
@@ -143,13 +143,11 @@ class ProductList(models.Model):
     quantity = models.IntegerField(default=1, null=True)
 
     def __str__(self):
-        return self.quantity
-
-    def __str__(self):
         return self.product
 
     class Meta:
         verbose_name_plural = 'Product List'
+
 
 @register_snippet
 class ProductOrders(models.Model):

@@ -5,7 +5,6 @@
 
 {% block extra_css %}
 
-<link rel="stylesheet" href="{% static 'css/welcome_page.css' %}">
 {% endblock extra_css %}
 
 {% block content %}
@@ -16,9 +15,7 @@
         <h1>Hello Store</h1>
         <h2>{{ page.banner_title}}</h2>
     <p>
-        {{ page.introduction }}
+        {{ page.intro }}
     </p>
-{% include 'home/welcome_page.html' %}
-
 
 {% endblock content %}

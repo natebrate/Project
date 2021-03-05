@@ -20,7 +20,7 @@ class CustomImage(AbstractImage):
 
 class HomePage(Page):
     banner_title = models.CharField(
-        max_length=100, default="Store Front!"
+        max_length=100, default="Home Page!"
     )
     introduction = models.TextField(blank=True)
     banner_image = models.ForeignKey(
