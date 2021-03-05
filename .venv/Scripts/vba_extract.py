@@ -1,4 +1,4 @@
-#!c:\users\nsbra\onedrive\desktop\djano-cms\project\.venv\scripts\python.exe
+#!C:\Users\nsbra\OneDrive\Desktop\DjangoWagtail\Wagtails\.venv\Scripts\python.exe
 
 ##############################################################################
 #
