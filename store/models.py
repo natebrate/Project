@@ -81,6 +81,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user_name
 
+    class Meta:
+        verbose_name_plural = 'Customer (User) Information'
+
 
 @register_snippet
 class UserDetails(models.Model):
@@ -127,6 +130,12 @@ class Products(models.Model):
         ImageChooserPanel('product_image')
     ]
 
+    def __str__(self):
+        return self.prodName
+
+    class Meta:
+        verbose_name_plural = 'Store Product'
+
 
 @register_snippet
 class ProductList(models.Model):
@@ -159,4 +168,7 @@ class ProductOrders(models.Model):
         '''
 
     def __str__(self):
-        return self.ordered
+        return self.user
+
+    class Meta:
+        verbose_name_plural = 'Customer Orders'
