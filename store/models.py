@@ -134,7 +134,7 @@ class Products(models.Model):
         return self.prodName
 
     class Meta:
-        verbose_name_plural = 'Store Product'
+        verbose_name_plural = 'Store Products'
 
 
 @register_snippet
@@ -145,6 +145,11 @@ class ProductList(models.Model):
     def __str__(self):
         return self.quantity
 
+    def __str__(self):
+        return self.product
+
+    class Meta:
+        verbose_name_plural = 'Product List'
 
 @register_snippet
 class ProductOrders(models.Model):
