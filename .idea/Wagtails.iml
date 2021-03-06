@@ -27,6 +27,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/home/templates" />
+        <option value="$MODULE_DIR$/streams/templates" />
         <option value="$MODULE_DIR$/store/templates" />
       </list>
     </option>

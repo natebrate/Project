@@ -1,0 +1,16 @@
+{% load wagtailimages_tags %}
+
+<div class="container mb-sm-5 mt-sm-5">
+    <h1 class="text-center mb-sm-5">{{ self.title }}</h1>
+    <div class="card-deck">
+        {% for r in self.title_and_text %}
+            <div class="card">
+                <img src="#" class="card-img-top" />
+                <div class="card-body">
+                    <h5 class="card-title">{{ r.title }}</h5>
+                    <p class="card-text">{{ r.text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

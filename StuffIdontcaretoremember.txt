@@ -1,5 +1,3 @@
-Commands
-
 First remove field scores, Then
 
 python manage.py makemigrations
@@ -16,40 +14,3 @@ python manage.py migrate
 python manage.py migrate --run-syncdb
 
 python manage.py runserver
-
-
-Master username
-postgres
-Master password
-DEPbuE0Fz0M1fdriGOE4
-
-Endpoint & port
-Endpoint
-database-1.ck5uoft8eu0l.us-east-2.rds.amazonaws.com
-Port
-5432
-
-Networking
-Availability zone
-us-east-2b
-
-VPC
-vpc-6a1c9a01
-
-Subnet group
-default
-Subnets
-subnet-4582cd09
-subnet-eb9d7a96
-subnet-01ef466a
-
-Security
-VPC security groups
-default (sg-847773f7)
-( active )
-Public accessibility
-Yes
-Certificate authority
-rds-ca-2019
-Certificate authority date
-Aug 22nd, 2024

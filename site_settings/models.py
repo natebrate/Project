@@ -11,7 +11,7 @@ class SocialMediaSettings(BaseSetting):
     link = models.URLField(max_length=100, default='https://www.linkedin.com/in/nathan-brathwaite-80b7a1193/')
     github = models.URLField(max_length=100, default='')
     twitter = models.URLField(max_length=100, default='')
-    url = models.URLField(max_length=100, default='')
+    url = models.URLField(max_length=100, default='', null=True)
 
     panels = [
         FieldPanel("instagram"),

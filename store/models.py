@@ -37,9 +37,9 @@ class StorePage(Page):
 
     body = StreamField([
         # Place Blocks Here
-        ('heading', blocks.CharBlock(template="store/heading_block.html")),
-        ('image', ImageChooserBlock()),
-        ('paragraph', blocks.RichTextBlock()),
+        ('heading', blocks.CharBlock(template="store/heading_block.html", help_text="Add Your Heading")),
+        ('image', ImageChooserBlock(help_text="Add Your Image")),
+        ('paragraph', blocks.RichTextBlock(help_text="Add Your Paragraph")),
     ], null=True)
 
     content_panels = Page.content_panels + [
@@ -51,6 +51,14 @@ class StorePage(Page):
         StreamFieldPanel('body'),
     ]
 
+    class Meta:
+        verbose_name = "Home Page"
+        verbose_name_plural = "Home Pages"
+
+
+"""
+    Models for the store create below
+"""
 
 """CHOICE FOR DATABASE"""
 ADDRESS_CHOICES = (

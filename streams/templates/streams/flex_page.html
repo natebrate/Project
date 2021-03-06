@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block body_class %}template-flexpage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="container-md">
+        <!-- Page Header -->
+
+    <!-- For Demo Purpose-->
+        <header class="text-center mb-5">
+            <h1 class="display-4 font-weight-bold">Bootstrap Cards</h1>
+            <p class="font-italic text-muted mb-0">An awesome Bootstrap 4 cards collection with variant content.</p>
+            <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
+                <u>Bootstraps</u></a>
+            </p>
+        </header>
+
+                {% include_block page.content %}
+
+
+    </div>
+{% endblock content %}
