@@ -109,7 +109,7 @@ def generate_food_id():
 @register_snippet
 class UserProfile(models.Model):
     """User Profile Model"""
-    user_name = models.CharField(max_length=100, null=False)
+    user_name = models.CharField(max_length=100, null=True)
     user_id = models.IntegerField(null=True, unique=True)
     email = models.CharField(max_length=200, null=True, unique=True)
     phone_number = models.CharField(max_length=200, null=True)
@@ -131,22 +131,31 @@ class UserProfile(models.Model):
 
 
 @register_snippet
-class UserDetails(models.Model):
+class UserInformation(models.Model):
     """Separate the User information that isn't required initially"""
-    user = models.ForeignKey(UserProfile,
-                             on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, null=True)
     one_click_purchasing = models.BooleanField(default=False, null=True)
     street_address = models.CharField(max_length=100, null=True)
-    apartment_address = models.CharField(max_length=100, null=True)
+    apartment_address = models.CharField(max_length=100, null=True, default='')
     zip = models.CharField(max_length=100, null=True)
     address_type = models.CharField(max_length=1, choices=ADDRESS_CHOICES, null=True)
     default = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.user
+        return self.user.user_name
+
+    panels = [
+        FieldPanel('user'),
+        FieldPanel('one_click_purchasing'),
+        FieldPanel('street_address'),
+        FieldPanel('apartment_address'),
+        FieldPanel('zip'),
+        FieldPanel('address_type'),
+        FieldPanel('default'),
+    ]
 
     class Meta:
-        verbose_name_plural = 'Additional User Information'
+        verbose_name = "User Information"
 
 
 @register_snippet
@@ -188,7 +197,7 @@ class ProductList(models.Model):
     quantity = models.IntegerField(default=1, null=True)
 
     def __str__(self):
-        return self.product
+        return self.product.prodName
 
     class Meta:
         verbose_name_plural = 'Product List'
@@ -216,7 +225,7 @@ class ProductOrders(models.Model):
         '''
 
     def __str__(self):
-        return self.user
+        return self.user.user_name
 
     class Meta:
         verbose_name_plural = 'Customer Orders'
