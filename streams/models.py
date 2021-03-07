@@ -6,10 +6,11 @@ from wagtail.images.models import Image, AbstractImage, AbstractRendition
 
 from . import blocks
 
-""" """
-
 
 class FlexPage(Page):
+    """
+        Flex Page Model
+     """
     content = StreamField(
         [
             ("title_and_text", blocks.TitleAndTextBlocks()),
@@ -38,5 +39,4 @@ class FlexPage(Page):
     ]
 
     class Meta:
-        verbose_name = 'Flex Page',
         verbose_name_plural = 'Flex Pages'

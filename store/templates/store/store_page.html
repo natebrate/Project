@@ -10,33 +10,19 @@
 
 {% block content %}
 <div class="container-md">
-    <!-- Page Header -->
+    <!-- Cover Photo -->
     {% image page.image fill-1400x300 as img %}
-
     <img src="{{ img.url }}" class="img-fluid" alt="{{ img.alt }}">
-
-        <h1>Hello Store</h1>
-        <h2>{{ page.banner_title}}</h2>
-    <p>
-        {{ page.intro }}
-    </p>
-    <p>
-    <!-- PAGE BLOCK -->
-
-    <div class="clearfix">
-    <div class="content-wrapper">
-        {% include_block page.body %}
+    <!-- Introduction -->
+    <div class="text-white text-center bg-dark">
+        {% include_block page.intro %}
     </div>
-
-    <!-- Card 1 -->
-        <div class="card" style="width: 18rem;">
-            {% image page.product.product_image fill-300x200 as img1 %}
-            <img src="{{ img1.url }}" alt="{{ img1.url }}">
-            <div class="card-body">
-                <h5 class="card-title">Product Available: {{ page.product.prodName }}</h5>
-                <p class="card-text">{{ page.product.description }}</p>
-                <a href="#" class="btn btn-primary">Order</a>
-            </div>
+    <!-- PAGE BLOCK -->
+    <div class="clearfix">
+        <div class="content-wrapper">
+            {% for block in page.content %}
+                {% include_block block %}
+            {% endfor %}
         </div>
     </div>
 </div>

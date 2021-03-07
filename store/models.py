@@ -1,25 +1,20 @@
 import random
 
 from django.db import models
-
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
 from wagtail.core import blocks
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.core.models import Page
 from wagtail.core.fields import StreamField
+from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image, AbstractImage, AbstractRendition
-from wagtail.snippets.models import register_snippet
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.snippets.models import register_snippet
+
+from . import blocks
 
 
 class StorePage(Page):
     """The Actual Page to buy Food from other food pages will inherit this page"""
-    banner_title = models.CharField(
-        max_length=200,
-        default="Welcome to the store"
-    )
-    intro = models.TextField(blank=True, max_length=500)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -27,6 +22,24 @@ class StorePage(Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+
+    intro = StreamField(
+        [
+            ('intro_block', blocks.IntroBlock()),
+        ],
+        null=True,
+        blank=True
+    )
+
+    content = StreamField(
+        [
+            ('body_block', blocks.BodyBlock()),
+            ('foodCard', blocks.FoodBlocks()),
+        ],
+        null=True,
+        blank=True
+    )
+
     product = models.ForeignKey(
         'Products',
         null=True,
@@ -35,25 +48,17 @@ class StorePage(Page):
         related_name='+'
     )
 
-    body = StreamField([
-        # Place Blocks Here
-        ('heading', blocks.CharBlock(template="store/heading_block.html", help_text="Add Your Heading")),
-        ('image', ImageChooserBlock(help_text="Add Your Image")),
-        ('paragraph', blocks.RichTextBlock(help_text="Add Your Paragraph")),
-    ], null=True)
-
     content_panels = Page.content_panels + [
         # Panels in here
-        FieldPanel("banner_title"),
-        FieldPanel("intro"),
         ImageChooserPanel("image"),
+        StreamFieldPanel("intro"),
+        StreamFieldPanel("content"),
         SnippetChooserPanel('product'),
-        StreamFieldPanel('body'),
     ]
 
     class Meta:
-        verbose_name = "Home Page"
-        verbose_name_plural = "Home Pages"
+        verbose_name = "Store Page"
+        verbose_name_plural = "Store Pages"
 
 
 """

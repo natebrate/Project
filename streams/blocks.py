@@ -1,5 +1,4 @@
 """Add your blocks here"""
-from wagtail.core.fields import StreamField
 from wagtail.core import blocks
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.images.blocks import ImageChooserBlock
@@ -76,3 +75,4 @@ class SimpleRichtextBlock(blocks.RichTextBlock):
         template = "streams/richtext_block.html"
         icon = "edit"
         label = "Simple RichText"
+
