@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static wagtailimages_tags wagtailcore_tags %}
+
+{% block body_class %}template-flexpage{% endblock %}
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+    <div class="container-md">
+        <!-- Page Header -->
+
+    <!-- For Demo Purpose-->
+        <div class="text-center mb-5">
+            {% include_block page.body %}
+        </div>
+        <div>
+            {% include_block page.content %}
+        </div>
+
+    </div>
+{% endblock content %}

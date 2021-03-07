@@ -35,7 +35,7 @@ class FoodBlocks(blocks.StructBlock):
                 ("image", ImageChooserBlock(required=False)),
                 ("title", blocks.TextBlock(required=True, max_length=200)),
                 ("text", blocks.RichTextBlock(required=True, max_length=200)),
-                ("Price", blocks.IntegerBlock(required=True, max_length=200)),
+                ("Price", blocks.FloatBlock(required=True, max_length=200)),
                 ("button_page", blocks.PageChooserBlock(required=False)),
                 (
                     "button_url",

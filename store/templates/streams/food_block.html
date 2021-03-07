@@ -9,9 +9,9 @@
                 <img src="{{ img.url }}" alt="{{ img.alt }}" class="card-img-top" />
                 <div class="card-body">
                     <h5 class="card-title">{{ food.title }}</h5>
-                    <p class="card-text">{{ food.text }}</p>
-                    <p class="card-text">{{ food.price }}</p>
-                    {% if card.button_page %}
+                    <p class="card-text text-black">{{ food.text }}</p>
+                    $ {{ food.Price }} <br><br>
+                    {% if food.button_page %}
                         <a href="{{ food.button_page.url }}" class="btn btn-primary">
                             Learn More
                         </a>
