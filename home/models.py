@@ -10,7 +10,7 @@ from streams import blocks
 
 
 class HomePageCarouseImages(Orderable):
-    """ ADD SOME NICES IMAGES"""
+    """ ADD SOME NICE IMAGES"""
 
     page = ParentalKey("home.HomePage", related_name="carousel_images")
     carousel_image = models.ForeignKey(
@@ -27,6 +27,7 @@ class HomePageCarouseImages(Orderable):
 
 
 class HomePage(Page):
+    """Home page"""
     banner_title = models.CharField(
         max_length=100, default="Home Page!"
     )
@@ -51,7 +52,7 @@ class HomePage(Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel("carousel_images"),
+                InlinePanel("carousel_images", max_num=5, min_num=1, label="Image"),
             ], heading="carousel_images"
         ),
         StreamFieldPanel('content'),

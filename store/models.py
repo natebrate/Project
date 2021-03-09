@@ -1,8 +1,7 @@
 import random
 
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.core import blocks
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -50,10 +49,13 @@ class StorePage(Page):
 
     content_panels = Page.content_panels + [
         # Panels in here
-        ImageChooserPanel("image"),
-        StreamFieldPanel("intro"),
-        StreamFieldPanel("content"),
-        SnippetChooserPanel('product'),
+        MultiFieldPanel([
+            ImageChooserPanel("image"),
+            StreamFieldPanel("intro"),
+            StreamFieldPanel("content"),
+            SnippetChooserPanel('product'),
+        ], heading="Store Options"
+        )
     ]
 
     class Meta:
@@ -132,7 +134,7 @@ class UserProfile(models.Model):
         return self.user_name
 
     class Meta:
-        verbose_name_plural = 'Customer (User) Information'
+        verbose_name_plural = 'User Profiles'
 
 
 @register_snippet
@@ -198,6 +200,7 @@ class Products(models.Model):
 
 @register_snippet
 class ProductList(models.Model):
+    """For the user basket"""
     product = models.ForeignKey(Products, on_delete=models.CASCADE, null=True)
     quantity = models.IntegerField(default=1, null=True)
 

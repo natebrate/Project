@@ -444,3 +444,38 @@ class VideoBlogPage(BlogDetailPage):
         FieldPanel("youtube_video_id"),
         StreamFieldPanel("content"),
     ]
+
+
+@register_snippet
+class Author(models.Model):
+    """the models for the blog post"""
+
+    name = models.CharField(max_length=100, null=True)
+    number = models.IntegerField(null=True, unique=True)
+    email = models.CharField(max_length=200, null=True, unique=True)
+    company_url = models.CharField(max_length=100, null=True)
+    company = models.URLField(max_length=200, null=True)
+    date_created = models.DateField(null=True)
+    author_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
+    panels = [
+        FieldPanel('name'),
+        FieldPanel('number'),
+        FieldPanel('email'),
+        FieldPanel('company_url'),
+        FieldPanel('company'),
+        FieldPanel('date_created'),
+        FieldPanel('author_image'),
+    ]
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "User Information"

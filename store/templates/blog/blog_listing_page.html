@@ -3,7 +3,7 @@
 {% load wagtailimages_tags wagtailroutablepage_tags cache %}
 
 {% block content %}
-
+<div class="container-fluid text-center">
     <a href="{% routablepageurl page "latest_posts" %}">View Latest Posts Only</a>
 
     <h2>
@@ -17,10 +17,10 @@
         </small>
     </h2>
 
-    <div class="container">
+    <div class="container border-5">
         {% for post in posts %}
             {% cache 604800 blog_post_preview post.id %}
-                <div class="row mt-5 mb-5">
+                <div class="row mt-5 mb-5 border border-primary">
                     <div class="col-sm-3">
                         {% image post.banner_image fill-250x250 as blog_img %}
                         <a href="{{ post.url }}">
@@ -77,7 +77,7 @@
             </div>
         </div>
     {% endif %}
-
+</div>
 
 
 {% endblock content %}

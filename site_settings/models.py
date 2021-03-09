@@ -1,6 +1,6 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 
 
@@ -14,9 +14,11 @@ class SocialMediaSettings(BaseSetting):
     url = models.URLField(max_length=100, default='', null=True)
 
     panels = [
-        FieldPanel("instagram"),
-        FieldPanel("link"),
-        FieldPanel("github"),
-        FieldPanel("twitter"),
-        FieldPanel("url"),
+        MultiFieldPanel([
+            FieldPanel("instagram"),
+            FieldPanel("link"),
+            FieldPanel("github"),
+            FieldPanel("twitter"),
+            FieldPanel("url"),
+        ], heading="Social Media Settings")
     ]
