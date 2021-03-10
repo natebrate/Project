@@ -14,3 +14,7 @@ python manage.py migrate
 python manage.py migrate --run-syncdb
 
 python manage.py runserver
+
+
+SITE KEY: 6LckNXkaAAAAAPLouLWnC2CM76kvMOQmY3mmJVoF
+SECRET KEY: 6LckNXkaAAAAAOn-1WNfzr0C8Na1LSyz042RgVxL

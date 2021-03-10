@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'site_settings',
     'streams',
     'subscribers',
+    'contact',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
+    'wagtail.api.v2',
 
     'modelcluster',
     'taggit',
@@ -59,6 +61,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
+    'django.contrib.sites',
+
+    'captcha',
+    'wagtailcaptcha',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -180,3 +187,8 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
+
+# Recaptcha Settings
+RECAPTCHA_PRIVATE_KEY = "6LcEO3kaAAAAAN0Lwc3vqi-ItPQWnfSbd1MgoWy-"
+RECAPTCHA_PUBLIC_KEY = "6LcEO3kaAAAAAH_TtF1Z06yQEUIw57_WFfs1Z5ll"
+NOCAPTCHA = True

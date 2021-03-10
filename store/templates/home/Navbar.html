@@ -1,4 +1,4 @@
-{% load static wagtailuserbar menus_tags%}
+{% load static wagtailuserbar menus_tags cache%}
 
 {% get_menu 'main' as navigation %}
 
@@ -14,11 +14,13 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                {% cache 604800 navigation %}
                     {% for item in navigation.menu_items.all %}
                         <li>
                             <a href="{{ item.link }}" class="nav-link">{{ item.title }}</a>
                         </li>
                     {% endfor %}
+                {% endcache %}
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

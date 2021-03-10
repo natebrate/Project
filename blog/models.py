@@ -375,6 +375,11 @@ class BlogDetailPage(Page):
             [self.id]
         )
         cache.delete(key)
+
+        key = make_template_fragment_key(
+            "navigation"
+        )
+        cache.delete(key)
         return super().save(*args, **kwargs)
 
 

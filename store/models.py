@@ -1,7 +1,12 @@
 import random
 
+from django.core.cache import cache
+from django.core.cache.utils import make_template_fragment_key
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel, MultiFieldPanel
+
+from wagtail.admin.edit_handlers import (
+    FieldPanel, StreamFieldPanel, MultiFieldPanel
+)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -62,6 +67,16 @@ class StorePage(Page):
         verbose_name = "Store Page"
         verbose_name_plural = "Store Pages"
 
+    def save(self, *args, **kwargs):
+        """Create a template fragment key.
+
+        Then delete the key."""
+        key = make_template_fragment_key(
+            "store_page_preview",
+            [self.id]
+        )
+        cache.delete(key)
+        return super().save(*args, **kwargs)
 
 """
     Models for the store create below

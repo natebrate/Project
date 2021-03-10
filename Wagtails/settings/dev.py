@@ -26,6 +26,13 @@ INTERNAL_IPS += [
     '127.0.0.1',
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/Users/nsbra/OneDrive/Desktop/DjangoWagtail/Wagtails/cache"
+    }
+}
+
 DEBUG_TOOLBAR_CONFIG = {
     "INTERCEPT_REDIRECTS": False,
 }

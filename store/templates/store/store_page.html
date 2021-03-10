@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags wagtailcore_tags %}
+{% load static wagtailimages_tags wagtailcore_tags cache%}
 
 {% block body_class %}template-homepage{% endblock %}
 
@@ -21,7 +21,9 @@
     <div class="clearfix">
         <div class="content-wrapper">
             {% for block in page.content %}
+                {% cache 604800 store_page_preview block.id %}
                 {% include_block block %}
+                {% endcache %}
             {% endfor %}
         </div>
     </div>

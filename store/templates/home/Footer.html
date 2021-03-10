@@ -1,8 +1,9 @@
-{% load static %}
+{% load static cache %}
 <!DOCTYPE html>
 <html lang="en">
 <body>
 <!-- Footer -->
+{% cache 604800 footer %}
 <footer class="bg-dark text-center text-white">
   <!-- Grid container -->
   <div class="container p-4">
@@ -121,6 +122,7 @@
   </div>
   <!-- Copyright -->
 </footer>
+{% endcache %}
 <!-- Footer -->
 </body>
 </html>
