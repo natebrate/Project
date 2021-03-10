@@ -56,7 +56,7 @@
                                 </a>
                             </li>
                         {% endif %}
-
+                        <!-- loop through the pages and show number of pages of pagination -->
                         {% for page_num in posts.paginator.page_range %}
                             <li class="page-item {% if page_num == posts.number %} active{% endif %}">
                                 <a href="?page={{ page_num }}" class="page-link">

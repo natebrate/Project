@@ -217,7 +217,7 @@ class BlogListingPage(RoutablePageMixin, Page):
             all_posts = all_posts.filter(tags__slug__in=[tags])
 
         # Paginate all posts by 2 per page
-        paginator = Paginator(all_posts, 2)
+        paginator = Paginator(all_posts, 3)
         # Try to get the ?page=x value
         page = request.GET.get("page")
         try:
@@ -233,11 +233,13 @@ class BlogListingPage(RoutablePageMixin, Page):
 
         # "posts" will have child pages; you'll need to use .specific in the template
         # in order to access child properties, such as youtube_video_id and subtitle
+        # context["posts"] = BlogDetailPage.objects.live().public()
         context["posts"] = posts
         context["categories"] = BlogCategory.objects.all()
         return context
 
-    @route(r"^july-2019/$", name="july_2019")
+    # change back to 2019
+    @route(r"^july-2020/$", name="july_2019")
     @route(r"^year/(\d+)/(\d+)/$", name="blogs_by_year")
     def blogs_by_year(self, request, year=None, month=None):
         context = self.get_context(request)

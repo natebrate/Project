@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'home',
     'blog',
     'search',
+    'menus',
     'store',
     'site_settings',
     'streams',
@@ -58,7 +59,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
-    'django.contrib.sites',
 ]
 
 MIDDLEWARE = [
