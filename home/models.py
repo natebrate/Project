@@ -29,9 +29,22 @@ class HomePageCarouseImages(Orderable):
         ImageChooserPanel("carousel_image")
     ]
 
+    api_fields = [
+        APIField('carousel_image'),
+    ]
+
 
 class HomePage(RoutablePageMixin, Page):
     """Home page"""
+
+    # these are pages that can created under this page
+    subpage_types = ['home.HomePage']
+
+    # this is the page it can be created under
+    parent_page_types = [
+        'wagtailcore.Page',
+    ]
+
     banner_title = models.CharField(
         max_length=100, default="Home Page!"
     )
@@ -51,6 +64,8 @@ class HomePage(RoutablePageMixin, Page):
         APIField("banner_title"),
         APIField("banner_image"),
         APIField("introduction"),
+        APIField("carousel_images"),
+        APIField("content"),
     ]
 
     content_panels = Page.content_panels + [

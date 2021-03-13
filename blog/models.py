@@ -69,6 +69,7 @@ class BlogAuthorsOrderable(Orderable):
         return self.author.image
 
     api_fields = [
+        APIField("author"),
         APIField("author_name"),
         APIField("author_website"),
         # This is using a custom django rest framework serializer
@@ -364,6 +365,8 @@ class BlogDetailPage(Page):
     api_fields = [
         APIField("blog_authors"),
         APIField("content"),
+        APIField("categories"),
+        APIField("blog_authors"),
     ]
 
     def save(self, *args, **kwargs):

@@ -8,6 +8,9 @@ from . import blocks
 
 class FlexPage(Page):
     """ Flex Page Model """
+
+    # acceptable page for child pages
+    subpage_types = ['store.StorePage', 'streams.FlexPage', 'contact.ContactPage']
     body = StreamField(
         [
             ("rich_text", blocks.RichtextBlock()),

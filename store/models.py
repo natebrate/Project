@@ -1,25 +1,34 @@
+"""
+@todo Finish up the mf so store can be fully functional
+"""
 import random
 
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.db import models
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel
 )
 from wagtail.api import APIField
 from wagtail.core.fields import StreamField
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image, AbstractImage, AbstractRendition
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.images.api.fields import ImageRenditionField
 
 from . import blocks
+from blog.models import ImageSerializedField
 
 
 class StorePage(Page):
-    """The Actual Page to buy Food from other food pages will inherit this page"""
+    """ The Parental store page
+    The Actual Page to buy Food from other food pages will inherit this page
+    @todo create different type of Store Pages by category, i.e. Meat, Canned etc
+    """
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -83,6 +92,7 @@ class StorePage(Page):
         )
         cache.delete(key)
         return super().save(*args, **kwargs)
+
 
 """
     Models for the store create below
@@ -184,6 +194,75 @@ class UserInformation(models.Model):
 
     class Meta:
         verbose_name = "User Information"
+
+
+class ProductsOrderable(Orderable):
+    """This allows us to select one or more Products from Snippets."""
+
+    # page = ParentalKey("blog.BlogDetailPage", related_name="blog_authors")
+    # page = ParentalKey("store.StorePage", related_name="store_products")
+    product = models.ForeignKey(
+        "store.Products",
+        on_delete=models.CASCADE,
+    )
+
+    panels = [
+        SnippetChooserPanel("product"),
+    ]
+
+    @property
+    def product_title(self):
+        return self.product.title
+
+    @property
+    def product_price(self):
+        return self.product.price
+
+    @property
+    def product_ids(self):
+        return self.product.prodID
+
+    @property
+    def product_name(self):
+        return self.product.prodName
+
+    @property
+    def product_category(self):
+        return self.product.category
+
+    @property
+    def product_quantity(self):
+        return self.product.quantity
+
+    @property
+    def product_description(self):
+        return self.product.description
+
+    @property
+    def product_image(self):
+        return self.product.product_image
+
+    api_fields = [
+        APIField("product"),
+        APIField("product_title"),
+        APIField("product_price"),
+        APIField("product_ids"),
+        APIField("product_name"),
+        APIField("product_category"),
+        APIField("product_quantity"),
+        APIField("product_description"),
+        # This is using a custom django rest framework serializer
+        APIField("product_image", serializer=ImageSerializedField()),
+        # The below APIField is using a Wagtail-built DRF Serializer that supports
+        # custom image rendition sizes
+        APIField(
+            "image",
+            serializer=ImageRenditionField(
+                'fill-200x250',
+                source="product_image"
+            )
+        ),
+    ]
 
 
 @register_snippet
