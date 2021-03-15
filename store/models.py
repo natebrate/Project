@@ -6,7 +6,9 @@ import random
 from django.core.cache import cache
 from django.core.cache.utils import make_template_fragment_key
 from django.db import models
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, StreamFieldPanel, MultiFieldPanel
@@ -29,6 +31,10 @@ class StorePage(Page):
     The Actual Page to buy Food from other food pages will inherit this page
     @todo create different type of Store Pages by category, i.e. Meat, Canned etc
     """
+    # Ajax page for them sweet popups
+    ajax_template = 'store/store_page_ajax.html'
+    # Tags for the page
+    tags = ClusterTaggableManager(through='StorePageTag', blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -70,6 +76,7 @@ class StorePage(Page):
     content_panels = Page.content_panels + [
         # Panels in here
         MultiFieldPanel([
+            FieldPanel("tags"),
             ImageChooserPanel("image"),
             StreamFieldPanel("intro"),
             StreamFieldPanel("content"),
@@ -92,6 +99,14 @@ class StorePage(Page):
         )
         cache.delete(key)
         return super().save(*args, **kwargs)
+
+
+class StorePageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'StorePage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE,
+    )
 
 
 """
