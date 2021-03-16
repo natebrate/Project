@@ -11,7 +11,7 @@
         <h1>Tags:</h1>
         {% for tag in page.tags.all %}
             {# Loop through all the existing tags #}
-            <a href="/blog/?tag={{ tag.slug }}">{{ tag }}</a><br />
+            <a href="/blog?tag={{ tag.slug }}">{{ tag }}</a><br />
         {% endfor %}
     {% endif %}
 

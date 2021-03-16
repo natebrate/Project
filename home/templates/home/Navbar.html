@@ -22,6 +22,17 @@
                     {% endfor %}
                 {% endcache %}
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item text-white">
+                        {% if request.user.is_authenticated %}
+                            Hi {{ request.user.username }},
+                            <a href="{% url 'account_logout' %}" class="nav-link d-inline">Logout?</a>
+                        {% else %}
+                            Hi Guest!
+                            <a href="{% url 'account_login' %}" class="nav-link d-inline">Login?</a>
+                        {% endif %}
+                    </li>
+                </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>

@@ -27,13 +27,13 @@ INSTALLED_APPS = [
     'home',
     'blog',
     'search',
-    'core',
     'menus',
     'store',
-    'site_settings',
     'streams',
+    'site_settings',
     'subscribers',
     'contact',
+    'core',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -72,8 +72,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 ]
-SITE_ID = 1
 
+# Just to say to use the first SITE ID
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -103,10 +104,16 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wagtail.contrib.settings.context_processors.settings',
-                'django.template.context_processors.request',
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'Wagtails.wsgi.application'
@@ -137,15 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
-]
-
-AUTHENTICATION_BACKENDS = [
-
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 # Internationalization
@@ -209,3 +207,21 @@ INTERNAL_IPS = [ip[:-1] + '1' for ip in ips] + ['127.0.0.1', '10.0.2.2']
 RECAPTCHA_PRIVATE_KEY = "6LcEO3kaAAAAAN0Lwc3vqi-ItPQWnfSbd1MgoWy-"
 RECAPTCHA_PUBLIC_KEY = "6LcEO3kaAAAAAH_TtF1Z06yQEUIw57_WFfs1Z5ll"
 NOCAPTCHA = True
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_LOGOUT_REDIRECT_URL = '/login/'
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_BLACKLIST = ["fuck", "nigga", "jigga", "admin", "god"]
+ACCOUNT_USERNAME_MIN_LENGTH = 2
+ACCOUNT_USERNAME_VALIDATORS = None
