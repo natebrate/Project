@@ -27,6 +27,7 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/home/templates" />
+        <option value="$MODULE_DIR$/Wagtails/templates" />
       </list>
     </option>
   </component>

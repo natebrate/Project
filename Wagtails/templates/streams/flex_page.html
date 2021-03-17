@@ -16,7 +16,13 @@
             {% include_block page.body %}
         </div>
         <div>
-            {% include_block page.content %}
+            <div class="clearfix">
+        <div class="content-wrapper">
+            {% for block in page.content %}
+                {% include_block block %}
+            {% endfor %}
+        </div>
+    </div>
         </div>
 
     </div>

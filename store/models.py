@@ -22,7 +22,7 @@ from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail.images.api.fields import ImageRenditionField
 
-from . import blocks
+from streams import blocks
 from blog.models import ImageSerializedField
 
 
@@ -55,6 +55,8 @@ class StorePage(Page):
         [
             ('body_block', blocks.BodyBlock()),
             ('foodCard', blocks.FoodBlocks()),
+            ("title_and_text", blocks.TitleAndTextBlocks()),
+            ("cards", blocks.CardBlock()),
         ],
         null=True,
         blank=True
