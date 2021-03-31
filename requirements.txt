@@ -6,3 +6,7 @@ graphene~=2.1.8
 django-debug-toolbar~=3.2
 wagtail-django-recaptcha==1.0
 django-allauth==0.44.0
+
+
+'sqlparse==0.2.4',
+'pymongo>=3.2.0'
